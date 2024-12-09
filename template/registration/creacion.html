@@ -1,0 +1,63 @@
+{% extends "sitio/base.html" %}
+{% block menu %}{% endblock menu %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!-- Carga de Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- Carga del CSS de Bootstrap -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0-alpha1/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="row justify-content-center mt-5">
+    <div class="card col-12 col-md-6 col-lg-4 shadow-lg rounded-lg border-0">
+        <img src="#" alt="logo" class="card-img-top" height="200px">
+        <div class="card-body">
+            <h3 class="card-title text-center text-primary font-weight-bold">Registrar Usuario</h3>
+            <hr>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form | crispy }}
+                <div class="d-flex justify-content-between">
+                    <input class="btn btn-outline-secondary" type="button" value="Cancelar" onclick="history.go(-1);" />
+                    <!-- Botón de Confirmar -->
+                    <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        Confirmar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Términos y Condiciones -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Términos y Condiciones de Uso</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>1. Introducción</h6>
+                    <p>Bienvenido a Batidos Inc ("nosotros", "nuestro" o "nos"). Estos términos y condiciones ("Términos") rigen su acceso y uso de nuestro servicio web...</p>
+
+                    <h6>2. Aceptación de los Términos</h6>
+                    <p>Al registrarse y utilizar la Aplicación Web, usted confirma que ha leído, comprendido y acepta estos Términos...</p>
+                    <!-- Añadir más secciones según sea necesario -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Acepto</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Carga de JavaScript de Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0-alpha1/js/bootstrap.min.js"></script>
+
+{% endblock content %}

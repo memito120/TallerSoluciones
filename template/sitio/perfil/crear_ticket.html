@@ -1,0 +1,86 @@
+{% extends 'sitio/base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="card shadow-lg">
+        <div class="card-header" style="background-color: #ff6f61; color: white; text-align: center;">
+            <h2 class="mb-0">Crear Ticket</h2>
+        </div>
+        <div class="card-body">
+            <form method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+                
+                <!-- Mensaje de errores generales del formulario -->
+                {% if form.non_field_errors %}
+                <div class="alert alert-danger" role="alert">
+                    <h5 class="alert-heading">Problemas con el formulario:</h5>
+                    <ul class="mb-0">
+                        {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                
+                <!-- Campo para seleccionar entre "Servicios" y "Otros" -->
+                <div class="mb-4">
+                    <label class="form-label">{{ form.servicio_tipo.label }}</label>
+                    <div class="form-check">
+                        {{ form.servicio_tipo }}
+                    </div>
+                </div>
+
+                <!-- Campo de selección de servicios -->
+                <div id="servicio-seleccion" class="mb-4" style="display: none;">
+                    <label for="id_servicio" class="form-label">Servicio</label>
+                    <select id="id_servicio" name="servicio" class="form-select">
+                        <optgroup label="Servicios Creados">
+                            {% for servicio in servicios_creados %}
+                            <option value="{{ servicio.id }}">{{ servicio.nombre }}</option>
+                            {% endfor %}
+                        </optgroup>
+                        <optgroup label="Servicios Comprados">
+                            {% for servicio in servicios_comprados %}
+                            <option value="{{ servicio.id }}">{{ servicio.nombre }}</option>
+                            {% endfor %}
+                        </optgroup>
+                    </select>
+                </div>
+
+                <!-- Campo de descripción -->
+                <div id="descripcion" class="mb-4">
+                    <label class="form-label">{{ form.descripcion.label }}</label>
+                    <p class="text-muted mb-2">
+                        Por favor, describe el problema o servicio con detalles claros para que podamos ayudarte mejor.
+                    </p>
+                    {{ form.descripcion }}
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success btn-lg px-5">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const servicioTipoField = document.querySelectorAll('[name="servicio_tipo"]'); 
+        const servicioDiv = document.getElementById('servicio-seleccion'); 
+
+        servicioTipoField.forEach((input) => {
+            input.addEventListener('change', function () {
+                if (this.value === 'otros') {
+                    // Oculta el campo de selección de servicios
+                    servicioDiv.style.display = 'none';
+                } else {
+                    // Muestra el campo de selección de servicios
+                    servicioDiv.style.display = 'block';
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

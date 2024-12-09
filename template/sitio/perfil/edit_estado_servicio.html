@@ -1,0 +1,25 @@
+{% extends "sitio/base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- sitio/servicios/EDIT_estado_servicio.html -->
+<body>
+    <h2>Modificar Estado del Servicio: {{ estado.id_servicio.nombre }}</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar Cambios</button>
+    </form>
+
+    <a href="{% url 'servicio_list' %}">Volver a la lista de servicios</a>
+</body>
+
+
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}
+
+{% block js %}
+{% endblock js %}

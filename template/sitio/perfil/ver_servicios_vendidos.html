@@ -1,0 +1,43 @@
+{% extends "sitio/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">Servicios Vendidos</h2>
+
+    <pre>{{ servicios_comprados }}</pre>
+
+
+    {% if servicios_vendidos %}
+    <pre>{{ servicios_comprados }}</pre>
+
+        <div class="list-group">
+            {% for venta in servicios_vendidos %}
+                <div class="list-group-item mb-3 shadow-sm p-3">
+                    <h5 class="mb-2"><strong>Servicio:</strong> {{ venta.id_servicio.nombre }}</h5>
+                    <p class="mb-1">
+                        <strong>Categoría:</strong> {{ venta.id_servicio.get_cate_display }}<br>
+                        <strong>Comprador:</strong> {{ venta.id_user.username }} 
+                        (<a href="mailto:{{ venta.id_user.email }}">{{ venta.id_user.email }}</a>)<br>
+                        <strong>Estado:</strong> {{ venta.get_state_display }}<br>
+                        <strong>Precio:</strong> ${{ venta.id_servicio.costo|floatformat:2 }}
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info text-center">
+            <p>No has vendido ningún servicio aún.</p>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock content %}
+
+{% block footer %}
+
+{% endblock footer %}
+
+{% block js %}
+
+{% endblock js %}

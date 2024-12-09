@@ -1,0 +1,54 @@
+{% extends "sitio/base.html" %}
+{% block menu %}{% endblock menu %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Usuario y Perfil</title>
+    <!-- Cargar Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0-alpha1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-lg rounded-lg border-0">
+                    <div class="card-body">
+                        <h2 class="text-center text-primary mb-4">Crear Usuario y Perfil</h2>
+
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            <!-- Formulario de Datos de Usuario -->
+                            <div class="mb-4">
+                                <h3 class="text-secondary">Datos de Usuario</h3>
+                                {{ user_form|crispy }}
+                            </div>
+
+                            <!-- Formulario de Datos del Perfil -->
+                            <div class="mb-4">
+                                <h3 class="text-secondary">Datos del Perfil</h3>
+                                {{ perfil_form|crispy }}
+                            </div>
+
+                            <!-- Botón de Enviar -->
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary btn-lg">Crear Usuario</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cargar Bootstrap JS y dependencias -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0-alpha1/js/bootstrap.min.js"></script>
+</body>
+{% endblock content %}

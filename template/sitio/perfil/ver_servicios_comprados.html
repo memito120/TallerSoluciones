@@ -1,0 +1,34 @@
+{% extends "sitio/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">Servicios Comprados</h2>
+
+    {% if servicios_comprados %}
+        <div class="list-group">
+            {% for estado in servicios_comprados %}
+                <div class="list-group-item mb-3 shadow-sm p-3">
+                    <h5 class="mb-2"><strong>Servicio:</strong> {{ estado.id_servicio.nombre }}</h5>
+                    <p class="mb-1">
+                        <strong>Categoría:</strong> {{ estado.id_servicio.get_cate_display }}<br>
+                        <strong>Estado:</strong> {{ estado.get_state_display }}<br>
+                        <strong>Precio:</strong> ${{ estado.id_servicio.costo|floatformat:2 }}
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info text-center">
+            <p>No has comprado ningún servicio aún.</p>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}
+
+{% block js %}
+{% endblock js %}

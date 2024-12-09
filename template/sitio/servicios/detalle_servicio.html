@@ -1,0 +1,58 @@
+{% extends "sitio/base.html" %}
+{% load static %}
+{% block content %}
+
+<h1>{{ servicio.nombre }}</h1>
+<p><strong>Categoría:</strong> {{ servicio.cate }}</p>
+<p><strong>Descripción:</strong> {{ servicio.descripcion }}</p>
+<p><strong>Costo:</strong> {{ servicio.costo }}</p>
+
+<!-- Calificación -->
+<h3>Calificación</h3>
+{% if calificacion_existente %}
+  <p><strong>Tu calificación:</strong> {{ calificacion_existente.nota }}%</p>
+{% else %}
+  <h4>Califica este servicio</h4>
+  <form method="post">
+    {% csrf_token %}
+    {{ form_calificacion.as_p }}
+    <button type="submit" name="calificacion">Enviar calificación</button>
+  </form>
+{% endif %}
+
+<!-- Comentarios -->
+<h3>Comentarios</h3>
+{% for comentario in comentarios %}
+  <div>
+    <p><strong>{{ comentario.id_perfil.correo }}:</strong> {{ comentario.comentario }}</p>
+    <!-- Respuestas -->
+    {% for respuesta in comentario.respuestas.all %}
+      <div style="margin-left: 20px;">
+        <p><strong>{{ respuesta.id_perfil.correo }}:</strong> {{ respuesta.comentario }}</p>
+      </div>
+    {% endfor %}
+    <h5>Responder:</h5>
+    <form method="post">
+      {% csrf_token %}
+      {{ form_comentario.as_p }}
+      <input type="hidden" name="parent_id" value="{{ comentario.id }}">
+      <button type="submit" name="comentario">Responder</button>
+    </form>
+  </div>
+{% endfor %}
+
+<h3>Deja tu comentario</h3>
+<form method="post">
+  {% csrf_token %}
+  {{ form_comentario.as_p }}
+  <button type="submit" name="comentario">Dejar comentario</button>
+</form>
+
+
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}
+
+{% block js %}
+{% endblock js %}

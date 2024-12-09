@@ -1,0 +1,20 @@
+{% extends "sitio/base.html" %}
+{% load static %}
+{% block content %}
+
+<h1>Enviar Solicitud de Verificación</h1>
+<form action="" method="post">
+    {% csrf_token %}
+    <label for="texto_solicitud">Mensaje para el Administrador:</label><br>
+    <textarea name="texto_solicitud" id="texto_solicitud" rows="4" cols="50" required></textarea><br>
+    <button type="submit">Enviar Solicitud</button>
+</form>
+
+
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}
+
+{% block js %}
+{% endblock js %}

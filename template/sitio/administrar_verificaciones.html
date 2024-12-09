@@ -1,0 +1,30 @@
+{% extends "sitio/base.html" %}
+{% load static %}
+{% block content %}
+
+<h1>Administrar Solicitudes de Verificación</h1>
+<ul>
+    {% for solicitud in solicitudes %}
+        <li>
+            <strong>Usuario:</strong> {{ solicitud.usuario }} <br>
+            <strong>Mensaje:</strong> {{ solicitud.mensaje }} <br>
+            <form action="" method="post" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="solicitud_id" value="{{ solicitud.id }}">
+                <button type="submit" name="accion" value="aprobar">Aprobar</button>
+                <button type="submit" name="accion" value="rechazar">Rechazar</button>
+            </form>
+        </li>
+    {% empty %}
+        <li>No hay solicitudes pendientes.</li>
+    {% endfor %}
+</ul>
+
+
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}
+
+{% block js %}
+{% endblock js %}

@@ -1,0 +1,77 @@
+{% extends "sitio/base.html" %}
+{% block menu %}{% endblock menu %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión</title>
+    <!-- Agregar un estilo personalizado -->
+    <style>
+        body {
+            background-image: url('{% static "img/servicios-crear.png" %}'); /* Asegúrate de tener la imagen en la carpeta correcta */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco con transparencia */
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .btn-secundary {
+            background-color: #d6d6d6;
+            border: none;
+        }
+
+        .btn-dark {
+            background-color: #343a40;
+            border: none;
+        }
+
+        h3 {
+            color: #007bff;
+        }
+
+        .btn {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-lg">
+                <img src="{% static 'img/usuario-seguro (1).png' %}" alt="logo" class="card-img-top" width="60" height="auto">
+                <div class="card-body">
+                    <h3 class="card-title text-center text-primary">Inicio de Sesión</h3>
+                    <hr>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form | crispy }}
+                        <div class="d-flex justify-content-between">
+                            <input class="btn btn-secundary" onclick="history.go(-1);" value="Cancelar">
+                            <input class="btn btn-dark" type="submit" value="Ingresar">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+{% endblock content %}

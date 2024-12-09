@@ -1,0 +1,36 @@
+{% extends "sitio/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+            <h2 class="mb-0">Editar Servicio: {{ servicio.nombre }}</h2>
+        </div>
+        <div class="card-body">
+            <form method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="row g-3">
+                    {% for field in form %}
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                                <input type="{{ field.type }}" name="{{ field.name }}" class="form-control" value="{{ field.value }}" id="{{ field.id_for_label }}">
+                                {% if field.errors %}
+                                    <div class="text-danger mt-1">
+                                        {{ field.errors|join:", " }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-success btn-lg">Guardar Cambios</button>
+                    <a href="{% url 'servicio_list' %}" class="btn btn-secondary btn-lg ms-3">Volver a la lista de servicios</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
